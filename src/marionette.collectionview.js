@@ -204,6 +204,11 @@ Marionette.CollectionView = Marionette.View.extend({
       args[0] = prefix + ":" + args[0];
       args.splice(1, 0, view);
 
+      // call collectionView itemEvent if defined
+      if (typeof this.itemEvents !== "undefined" && _.isFunction(this.itemEvents[args[0]])) {
+        this.itemEvents[args[0]].apply(this, args);
+      }
+
       Marionette.triggerMethod.apply(this, args);
     }, this);
   },
